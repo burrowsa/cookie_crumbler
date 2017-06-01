@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cookie Crumbler Options</title>
+  <style>
+    body { padding: 10px; }
+    div { margin-top: 10px; }
+  </style>
+</head>
+
+<body>
+  <div>
+    <label style="vertical-align: text-top; width: 50px">Domains:</label>
+    <select multiple id="domains" style="vertical-align: text-top; width: 150px">
+    </select>
+    <button id="remove_domain" style="vertical-align: text-top">X</button>
+  </div>
+
+  <div>
+    <label>http(s)://</label>
+    <input id="new_domain" style="width: 150px">
+    <button id="add_domain">Add</button>
+  </div>
+
+  <div>
+    <label><input type="checkbox" id="clear_on_start">Clear cookies on start.</input></label>
+  </div>
+
+  <div>
+    <label><input type="checkbox" id="clear_on_tab_close">Clear cookies on last tab closed.</input></label>
+  </div>
+
+  <div>Graphics by: <a href="https://www.vecteezy.com">vecteezy.com</a></div>
+
+  <script src="options.js"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+{
+  "manifest_version": 2,
+
+  "name": "Cookie Crumbler",
+  "description": "Deletes certain cookies when Chrome starts or when tabs are closed and provides a button to allow users to easily delete cookies",
+  "version": "0.1",
+  "icons": {
+    "16": "icon16.png",
+    "24": "icon24.png",
+    "32": "icon32.png",
+    "48": "icon48.png",
+    "64": "icon64.png",
+    "128": "icon128.png"
+  },
+  "permissions": [
+    "cookies",
+    "storage",
+    "tabs",
+    "http://*/*",
+    "https://*/*"
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
+  },
+  "browser_action": {
+    "default_title": "Cookie Crumbler"
+  }
+}

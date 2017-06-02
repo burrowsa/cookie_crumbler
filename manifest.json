@@ -3,7 +3,7 @@
 
   "name": "Cookie Crumbler",
   "description": "Deletes certain cookies when Chrome starts or when tabs are closed and provides a button to allow users to easily delete cookies",
-  "version": "0.4",
+  "version": "0.5",
   "icons": {
     "16": "icon16.png",
     "24": "icon24.png",

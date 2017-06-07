@@ -31,7 +31,7 @@ function clearOnStart() {
 }
 
 function getDomain(url){
-  return url.split("//")[1].split("?")[0].split("/")[0];
+  return url.split("//")[1].split(":")[0].split("?")[0].split("/")[0];
 }
 
 var urls = [];

@@ -5,13 +5,16 @@ function erase(domain) {
     var cookie, _i, _len;
     for (_i = 0, _len = cookies.length; _i < _len; _i++) {
       cookie = cookies[_i];
+      var cookie_url = "http" + (cookie.secure ? "s" : "") + "://" + cookie.domain + cookie.path;
       chrome.cookies.remove({
-        url: "http" + (cookie.secure ? "s" : "") + "://" + cookie.domain + cookie.path,
-        name: cookie.name
+        url: cookie_url,
+        name: cookie.name,
+        storeId: cookie.storeId
+      }, function() {
+        console.log("[Cookie Crumbler] removed " + cookie.name + " from " + cookie_url);
       });
     }
   });
-  console.log("[Cookie Crumbler] cookies for " + domain + " erased!");
 };
 
 function clearOnStart() {
@@ -28,7 +31,7 @@ function clearOnStart() {
 }
 
 function getDomain(url){
-  return url.split("//")[1].split("?")[0].split("/")[0];
+  return url.split("//")[1].split(":")[0].split("?")[0].split("/")[0];
 }
 
 var urls = [];
@@ -45,8 +48,13 @@ function rememberTabURLAfterChange(tabId, changeInfo, tab) {
   }
 }
 
-function clearOnLastClosedTab(tabId, removeInfo) {
-  var domain = getDomain(urls[tabId]);
+function clearOnLastClosedTab(tabId, removeInfo) {  
+  if (!(tabId in urls)) {
+    return;
+  }
+  
+  var domain = getDomain(urls[tabId]);  
+  
   chrome.storage.sync.get({
     domains: [],
     clear_on_tab_close: true
@@ -55,7 +63,7 @@ function clearOnLastClosedTab(tabId, removeInfo) {
       chrome.tabs.query({
         url: "*://" + domain + "/*"
       }, function(tabs) {
-        if (tabs.length > 1) {
+        if (tabs.length < 1) {
           erase(domain);
         }
       });

@@ -40,15 +40,17 @@ function restoreOptions() {
 }
 
 function removeDomain() {
+  var _i, _len;
+
   var domainsCtrl = document.getElementById("domains");
   if (!domainsCtrl.children) {
     return;
   }
 
-  var selected_domain = null;
+  var to_remove = [];
   for (_i = 0, _len = domainsCtrl.children.length; _i < _len; _i++) {
     if (domainsCtrl.children[_i].selected) {
-      selected_domain = domainsCtrl.children[_i].value;
+      to_remove.unshift(_i);
     }
   }
   
@@ -56,10 +58,11 @@ function removeDomain() {
     domains: []
   }, function(items) {
     var domains = items.domains;
-    var idx = domains.indexOf(selected_domain);
-    if (idx > -1){
-      domains.splice(idx, 1);
+    
+    for (_i = 0, _len = to_remove.length; _i < _len; _i++) {
+      domains.splice(to_remove[_i], 1);
     }
+    
     chrome.storage.sync.set({
         domains: domains
     }, function(items) {
